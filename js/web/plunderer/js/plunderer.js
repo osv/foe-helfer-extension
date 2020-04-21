@@ -157,10 +157,7 @@ FoEproxy.addHandler('CityMapService', 'reset', async (data, postData) => {
 				buildId: entity.cityentity_id,
 			};
 
-			console.log('CityMapService::reset: plundered entity', entity.id)
-
 			await Plunderer.upsertPlunderAction(action);
-			Plunderer.UpdateBoxIfVisible();
 		}
 	});
 });
@@ -188,7 +185,6 @@ FoEproxy.addHandler('CityMapService', 'showEntityIcons', async (data, postData) 
 
 	const playerId = Plunderer.lastVisitedPlayer.other_player.player_id;
 
-	console.log('CityMapService::showEntityIcons: double plunder', doublePlunderCityId)
 	const action = {
 		entityId: doublePlunderCityId,
 		playerId,
@@ -278,10 +274,8 @@ let Plunderer = {
 			}
 
 			if (lastPlunderAction) {
-				console.log('Update action', {payload})
 				await IndexDB.db.actions.put(payload);
 			} else {
-				console.log('Create action', {payload})
 				await IndexDB.db.actions.add(payload);
 			}
 		});
